@@ -1,0 +1,31 @@
+<apex:page controller="AgreementApprovalController">
+
+    <apex:includeScript value="/soap/ajax/34.0/connection.js"/>
+    <apex:includeScript value="/soap/ajax/34.0/apex.js"/>
+    <apex:form >
+        <apex:actionFunction name="CallSubmitForApprovalMethod" action="{!submitForApproval}" oncomplete="alertPage('{!childNotApproveCount}')"/>
+        <apex:actionFunction name="CallSendApproval" action="{!submitApproval}"/>
+    </apex:form>
+    
+    <script language="JavaScript" type="text/javascript">
+    CallSubmitForApprovalMethod();
+    
+    function alertPage(count){ 
+        if(count == 0){
+            var answer = window.confirm('Once you submit this record for approval, you might not be able to edit or recall it from the approval process depending on your settings. Continue?');
+            
+            if(answer){
+                CallSendApproval();
+            } else {
+                window.location = '/' + '{!agreementId}';
+            }
+        //Change by Zane to alert when child records have not been approved    
+        } else {
+            alert("For parent records, all child records must be approved.");
+            window.location = '/' + '{!agreementId}';
+            //alert(count);
+        }         
+    }
+    </script>
+       
+</apex:page>

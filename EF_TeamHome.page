@@ -1,0 +1,117 @@
+<!-- Modified By Sidhant Agarwal Related To T-331537 November 11th, 2014 -->
+<apex:page docType="html-5.0" showHeader="false" sidebar="false" standardStylesheets="true" applyHtmlTag="false" applyBodyTag="false" controller="EdgeForceIntranetTeamController">
+    <apex:composition template="EF_Template">
+        <apex:define name="body">
+            <div class="container-bs">
+                <div class="row">
+                    <div class="col-sm-12 ef-content team">
+                        <ol class="breadcrumb">
+                            <li class="fa"><h2> {!groupName}</h2></li>
+                        </ol>
+                        <div class="row">
+                            <div class="col-sm-8 col-sm-push-4">
+                                <div class="carousel">
+                                    <c:EF_Banner BannerPageId="{!pageName}" />
+                                </div>
+
+                                <h4>{!$Label.News}</h4>
+                                <div class="section-content pad-less">
+                                    <c:EF_TeamNews newsfeedpageId="{!groupName}" />
+                                </div><!--/.section-content -->
+                            </div><!--/.col-sm-8 -->
+
+                            <div class="col-sm-4 col-sm-pull-8">
+                                <div class="panel-group nav-panel" id="accordion" role="tablist" aria-multiselectable="true">
+                                    <div class="panel panel-default">
+                                        <div role="tab" id="headingOne">
+                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                <h4 class="panel-title">{!$Label.Related_Pages}</h4>
+                                                <i class="fa"></i>
+                                            </a>
+                                        </div>
+                                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                            <div class="panel-body section-content">
+                                                <ul class="side-nav">
+                                                    <li><c:EF_RelatedPages /></li>
+                                                </ul>
+                                            </div><!--/.panel-body -->
+                                        </div><!--/.panel-collapse -->
+                                    </div><!--/.panel -->
+
+                                    <div class="panel panel-default">
+                                        <div role="tab" id="headingTwo">
+                                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                                <h4 class="panel-title">Top Links</h4>
+                                                <i class="fa"></i>
+                                            </a>
+                                        </div>
+                                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                            <div class="panel-body section-content">
+                                                <ul class="side-nav">
+                                                    <li><c:EF_TopLinks /></li>
+                                                </ul>
+                                            </div><!--/.panel-body -->
+                                        </div><!--/.panel-collapse -->
+                                    </div><!--/.panel -->
+
+                                    <div class="panel panel-default">
+                                        <div role="tab" id="headingThree">
+                                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                                                <h4 class="panel-title">{!$Label.Resources}</h4>
+                                                <i class="fa"></i>
+                                            </a>
+                                        </div>
+                                        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                            <div class="panel-body section-content">
+                                                <ul class="side-nav">
+                                                    <li><c:EF_TeamResources rendered="{!showCRMContent}"/></li>
+                                                </ul>
+                                            </div><!--/.panel-body -->
+                                        </div><!--/.panel-collapse -->
+                                    </div><!--/.panel -->
+
+                                </div>
+                                <h4>{!$Label.Chatter}</h4>
+                                <div class="section-content chatter">
+                                    <chatter:feed entityId="{!chatterGroudID}"></chatter:feed>
+                                </div>
+                                <a class="btn-bs btn-sm btn-primary read-more visible-xs" href="/apex/EF_ChatterPage">View full Chatter feed</a>
+
+                            </div><!--/.col-sm-4 -->
+
+                            
+                        </div><!--/.row -->
+                    </div><!--/.col-sm-12 ef-content -->
+                </div><!--/.row -->
+            </div><!--/.container-bs-->
+
+            <script>
+                $(document).ready(function(){
+                    function getURLParameter(name) {
+                        return decodeURI((RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]);
+                    }
+                    var pageName = getURLParameter("tabName");
+                    $("#menuDiv ul:first > li > a").each(function(){
+                        if ($(this).text().toLowerCase() == pageName.toLowerCase()){
+                            $(this).parent().addClass("active");
+                        }else{
+                            $(this).parent().removeClass("active");
+                        }
+                    });
+                        $('.defaultBannerImage').attr('src','{!$Resource.TeamBanner}');  
+                    /*
+                    if(screen.width <= 480 || navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i)) {
+                    $('.defaultBannerImage').css('height','160px');
+                    $('.defaultBannerImage').css('width','100%');
+                    $('.carousel').css('height','98px');
+                    }else {
+                    $('.defaultBannerImage').css('height','245px');
+                    $('.defaultBannerImage').css('width','705px');
+                    } 
+                */
+                });
+            </script>
+
+        </apex:define>
+    </apex:composition>
+</apex:page>

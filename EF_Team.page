@@ -7,6 +7,7 @@
                         <h1>{!groupName}</h1>
                         <div class="row"> 
                             <div class="col-sm-3">
+                            Sandeep
                                 <h4>{!$Label.Resources}</h4>
                                 <div class="section-content">
                                     <c:EF_Resources rendered="{!showCRMContent}"/>
